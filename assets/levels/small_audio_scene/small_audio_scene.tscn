@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://gxwamc3il2k8"]
+[gd_scene load_steps=18 format=3 uid="uid://gxwamc3il2k8"]
 
 [ext_resource type="PackedScene" uid="uid://bdv3s687wq2ie" path="res://assets/prefabs/player/player.tscn" id="1_8gqtf"]
 [ext_resource type="Script" path="res://assets/code/steamaudio/steam_audio_tempo.gd" id="2_ebovl"]
@@ -32,6 +32,12 @@ material = ExtResource("3_121us")
 [sub_resource type="BoxMesh" id="BoxMesh_h6aqd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1uwct"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bcjkp"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fdx0g"]
+size = Vector3(20, 0.1, 20)
 
 [node name="small_audio_scene" type="Node3D"]
 
@@ -80,4 +86,16 @@ mesh = SubResource("BoxMesh_h6aqd")
 shape = SubResource("BoxShape3D_1uwct")
 
 [node name="SteamAudioGeometry" type="SteamAudioGeometry" parent="Cube"]
+script = ExtResource("5_iy1kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0442297, 0.999021, 0, -0.999021, -0.0442297, 0, 0, 0, 1, -8.27909, 3.8093, 0)
+mesh = SubResource("BoxMesh_bcjkp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_fdx0g")
+
+[node name="SteamAudioGeometry" type="SteamAudioGeometry" parent="MeshInstance3D"]
 script = ExtResource("5_iy1kn")
