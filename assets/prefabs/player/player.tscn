@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdv3s687wq2ie"]
+
+[ext_resource type="Script" path="res://assets/code/player/player_controller.gd" id="1"]
+[ext_resource type="Script" path="res://assets/code/player/hud_ui.gd" id="2_m338d"]
+
+[sub_resource type="CapsuleMesh" id="1"]
+
+[sub_resource type="CapsuleShape3D" id="2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r8hsa"]
+font_color = Color(1, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D"]
+floor_constant_speed = true
+script = ExtResource("1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("2")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+far = 6000.0
+
+[node name="SteamAudioListener" type="SteamAudioListener" parent="Head"]
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FPS" type="Label" parent="HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_r8hsa")
+script = ExtResource("2_m338d")

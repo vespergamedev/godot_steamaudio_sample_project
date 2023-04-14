@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://b7aa1bsrhi0v8"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="1"]
+constant = Color(1, 0, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_80qgj"]
+operator = 2
+
+[sub_resource type="VisualShader" id="2"]
+code = "shader_type spatial;
+
+
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(1.000000, 0.000000, 0.000000, 1.000000);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	EMISSION = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-464.585, 187.862)
+nodes/fragment/2/node = SubResource("1")
+nodes/fragment/2/position = Vector2(-224.29, 244)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatOp_80qgj")
+nodes/fragment/3/position = Vector2(32.7284, 228.065)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 5, 2, 0, 0, 0)
+
+[resource]
+render_priority = 0
+shader = SubResource("2")

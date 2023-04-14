@@ -1,0 +1,83 @@
+[gd_scene load_steps=16 format=3 uid="uid://gxwamc3il2k8"]
+
+[ext_resource type="PackedScene" uid="uid://bdv3s687wq2ie" path="res://assets/prefabs/player/player.tscn" id="1_8gqtf"]
+[ext_resource type="Script" path="res://assets/code/steamaudio/steam_audio_tempo.gd" id="2_ebovl"]
+[ext_resource type="Material" uid="uid://b7aa1bsrhi0v8" path="res://assets/materials/debug_red.tres" id="3_121us"]
+[ext_resource type="PackedScene" uid="uid://dqhna38gju3jx" path="res://assets/prefabs/steamaudio/audio_stream_player_steam_audio_example.tscn" id="4_2req1"]
+[ext_resource type="Script" path="res://assets/code/steamaudio/steamaudio_geometry_example.gd" id="5_iy1kn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yp1of"]
+size = Vector3(50, 0.2, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqscy"]
+size = Vector3(50, 0.2, 50)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7hwhr"]
+
+[sub_resource type="Sky" id="Sky_1qp0d"]
+sky_material = SubResource("ProceduralSkyMaterial_7hwhr")
+
+[sub_resource type="Environment" id="Environment_1cm6j"]
+sky = SubResource("Sky_1qp0d")
+ambient_light_source = 3
+ambient_light_color = Color(0.666667, 0.666667, 0.666667, 1)
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_mirfv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_lgyg3"]
+material = ExtResource("3_121us")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ch652"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_h6aqd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1uwct"]
+
+[node name="small_audio_scene" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yp1of")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_vqscy")
+
+[node name="Player" parent="." instance=ExtResource("1_8gqtf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2849, 5.97261, 24.3922)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1cm6j")
+camera_attributes = SubResource("CameraAttributesPhysical_mirfv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.147171, 0.989111, 0, -0.989111, -0.147171, 0, 21.2226, 0)
+
+[node name="SteamAudioTempo" type="Node3D" parent="."]
+script = ExtResource("2_ebovl")
+
+[node name="Speaker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46292, 0.84197, 2.38239)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Speaker"]
+mesh = SubResource("SphereMesh_lgyg3")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Speaker/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Speaker/MeshInstance3D/StaticBody3D"]
+shape = SubResource("SphereShape3D_ch652")
+
+[node name="AudioStreamPlayerSteamAudioExample" parent="Speaker" instance=ExtResource("4_2req1")]
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1, 1, 0)
+mesh = SubResource("BoxMesh_h6aqd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
+shape = SubResource("BoxShape3D_1uwct")
+
+[node name="SteamAudioGeometry" type="SteamAudioGeometry" parent="Cube"]
+script = ExtResource("5_iy1kn")

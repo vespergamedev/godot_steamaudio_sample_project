@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqhna38gju3jx"]
+
+[ext_resource type="Script" path="res://assets/code/steamaudio/audio_stream_player_steam_audio_example.gd" id="1_nxray"]
+
+[sub_resource type="AudioStreamSteamAudio" id="AudioStreamSteamAudio_yyxgj"]
+
+[node name="AudioStreamPlayerSteamAudioExample" type="AudioStreamPlayerSteamAudio"]
+stream = SubResource("AudioStreamSteamAudio_yyxgj")
+script = ExtResource("1_nxray")
